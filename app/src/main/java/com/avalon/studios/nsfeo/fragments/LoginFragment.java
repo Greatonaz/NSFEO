@@ -12,7 +12,10 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+	    final View v = null;
+
+	    // TODO: Add code here.
+	    return v;
     }
 
 }
