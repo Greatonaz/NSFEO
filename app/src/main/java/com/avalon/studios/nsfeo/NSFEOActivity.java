@@ -1,9 +1,12 @@
 package com.avalon.studios.nsfeo;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.FrameLayout;
 
+import com.avalon.studios.nsfeo.fragments.LoginFragment;
 import com.avalon.studios.nsfeo.model.Card;
 import com.avalon.studios.nsfeo.model.Deck;
 import com.avalon.studios.nsfeo.model.GameSession;
@@ -20,12 +23,17 @@ import old.nsfeo.R;
 
 public class NSFEOActivity extends ActionBarActivity {
 
+	public final static String
+		LOGIN_TRANSACTION_TAG = "NSFEOActivity.this::add R.id.container, LoginFragment"
+	;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_blank);
+        this.setContentView(R.layout.container);
 
+	    // Register our local database models
         this.initDatabaseManager(
             Card.class,
             UserSession.class,
@@ -34,18 +42,27 @@ public class NSFEOActivity extends ActionBarActivity {
             GameSession.class
         );
 
-        final FrameLayout layout = (FrameLayout) (this.findViewById(R.id.container));
+	    // Select initial fragment according to application state
+	    final FragmentManager manager = this.getSupportFragmentManager();
 
         if (UserSession.objects(this).isEmpty()) {
-            // TODO: Create login fragment and show this
+
+	        final Fragment login = new LoginFragment();
+	        manager.beginTransaction()
+			       .add(R.id.container, login, NSFEOActivity.LOGIN_TRANSACTION_TAG)
+			       .commit();
         }
         else {
 
             // TODO: There has been at least one user for this app, load it and show the main menu fragment
         }
+
+	    // Flush the state right now, as to not let the user hanging around
+	    manager.executePendingTransactions();
     }
 
-    private void initDatabaseManager(Class<? extends Model> ... models) {
+    @SafeVarargs
+    private final void initDatabaseManager(Class<? extends Model>... models) {
 
         DatabaseAdapter.setDatabaseName("NSFEO_DB");
         final DatabaseAdapter adapter = DatabaseAdapter.getInstance(this);
