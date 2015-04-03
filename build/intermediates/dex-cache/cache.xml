@@ -2,32 +2,81 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e128103d5281ddd26195a7f980b36d0d005a4e56">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-9286030cbac95b1bc4314a290f0dbc68f28fffcd.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="27bbd3982cdfe4468a9bf99c8c773734a9049e33">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-142d49e5e20471d1660d353f9b5884fffb4f19ff.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/joda-time-2.3-046af4630d453e39bc57c895ad20b69ab32f75a6.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/0.11.91/3b53e4d9ba6595fa90c9f8405ece035d7eae11af/kotlin-stdlib-0.11.91.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3b53e4d9ba6595fa90c9f8405ece035d7eae11af">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/kotlin-stdlib-0.11.91-0e2c5fffd550f1b4b20485c51eacfccf28c6d123.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\pre-dexed\debug\classes-fedb2a68b84e5e9e4090e6f33356ab756a8db3e1.jar" />
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-3b930cf94260997178d1b1456d2bed0d0a3d9c57.jar" />
     </item>
     <item
-        jar="C:\Users\Tonaz\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/90a3822c38ec8c996e84c16a3477ef632cbc87a3/commons-lang3-3.3.2.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-0cd1ae3cb3943562286aa2dea3f8b81e7f4afd47.jar" />
+        sha1="90a3822c38ec8c996e84c16a3477ef632cbc87a3">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.2-98353ddb2806850af90c5f663caeaeaaf09a239a.jar" />
     </item>
     <item
-        jar="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\pre-dexed\debug\classes-b57919cafe393dcdaea7d2bc0d9dcb5967559a71.jar" />
-    </item>
-    <item
-        jar="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\Tonaz\AndroidStudioProjects\NSFEO\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-0b2f847a91fc82b96a745fc2e115a4427e7d23c8.jar" />
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-254bb1862419e276a09415ec83cf3eca46f61df0.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/0.11.91/5751624dc70cadd14c37e6e0043f554e993d2316/kotlin-runtime-0.11.91.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5751624dc70cadd14c37e6e0043f554e993d2316">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/kotlin-runtime-0.11.91-d931281e63ba032a06dd4ae43ac947300ec76189.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-2f1d543ff28073619e2abe68661cc9958df2318c.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-503bb0cb472723653ca5a994f483b5f5f85c309d.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/NSFEO/androrm/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bd8be50d6ae956e227e442c6f33b8bb087df6afa">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-58c4f19b8acf5cc1e9c51dec01f2760ce55b458d.jar" />
     </item>
 
 </items>

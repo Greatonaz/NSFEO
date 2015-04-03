@@ -7,10 +7,13 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerTabStrip
 import android.support.v4.view.ViewPager
+import android.support.v7.app.ActionBarActivity
+import android.support.v7.widget.Toolbar
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import old.nsfeo.R
+import com.avalon.nsfeo.R
 
 public class SessionFragment: Fragment() {
 
@@ -54,8 +57,7 @@ public class SessionFragment: Fragment() {
 		val manager = this.getFragmentManager()
 
 		// Inflate the view and set component behaviors
-		val v = inflater!!.inflate(R.layout.session, container, false)
-		with (v) {
+		with (inflater!!.inflate(R.layout.session, container, false)) {
 
 			// Provide the adapter for the view pager
 			val pager = this.findViewById(R.id.pager) as ViewPager
@@ -63,11 +65,18 @@ public class SessionFragment: Fragment() {
 
 			// Set tab color for the view pager tabs: they should work automatically
 			val tabs = this.findViewById(R.id.tabs) as PagerTabStrip
-			tabs.setTabIndicatorColor(ctx.getResources().getColor(R.color.complement))
+			tabs.setTabIndicatorColorResource(R.color.complement)
+			tabs.setTextColor(ctx.getResources().getColor(android.R.color.white))
+			tabs.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f)
 			tabs.setDrawFullUnderline(true)
-		}
 
-		return v
+			// Set toolbar as action bar and configure
+			val activity = (this@SessionFragment.getActivity() as ActionBarActivity)
+			activity.setSupportActionBar((this.findViewById(R.id.toolbar) as Toolbar))
+			activity.getSupportActionBar().setDisplayShowTitleEnabled(false)
+
+			return this
+		}
 	}
 
 }

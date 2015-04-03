@@ -3,7 +3,10 @@ package com.avalon.nsfeo.fragments
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.SpannableString
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.style.URLSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +14,22 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.avalon.nsfeo.R
 import com.avalon.nsfeo.util.DialogFactory
-import old.nsfeo.R
 
 public class SessionCreateFragment: Fragment() {
+
+	private class URLSpanNoUnderline: URLSpan {
+
+		public constructor(url: String): super(url) {}
+
+		override fun updateDrawState(ds: TextPaint) {
+
+			super.updateDrawState(ds);
+			ds.setUnderlineText(false);
+		}
+
+	}
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View {
 
@@ -23,11 +38,12 @@ public class SessionCreateFragment: Fragment() {
 		val manager = this.getFragmentManager()
 
 		// Inflate the view and set component behaviors
-		val v = inflater!!.inflate(R.layout.session_create, container, false)
-		with (v) {
+		with (inflater!!.inflate(R.layout.session_create, container, false)) {
 
 			// Enable the links in the disclaimer section
-			(this.findViewById(R.id.disclaimer) as TextView).setMovementMethod(LinkMovementMethod.getInstance())
+			val disclaimer = (this.findViewById(R.id.disclaimer) as TextView)
+			this@SessionCreateFragment.stripUnderlines(disclaimer)
+			disclaimer.setMovementMethod(LinkMovementMethod.getInstance())
 
 			// Get references to the email and password fields for later use
 			val email = (this.findViewById(R.id.email) as EditText)
@@ -59,9 +75,26 @@ public class SessionCreateFragment: Fragment() {
 					dialog.show()
 				}
 			}
+
+			return this
+		}
+	}
+
+	private fun stripUnderlines(v: TextView) {
+
+		val span = SpannableString(v.getText())
+		val span_segments = span.getSpans(0, span.length(), javaClass<URLSpan>())
+
+		for (s: URLSpan in span_segments) {
+
+			val start = span.getSpanStart(s)
+			val end = span.getSpanEnd(s)
+
+			span.removeSpan(s)
+			span.setSpan(URLSpanNoUnderline(s.getURL()), start, end, 0)
 		}
 
-		return v
+		v.setText(span)
 	}
 
 }

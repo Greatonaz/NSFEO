@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.avalon.nsfeo.R
 import com.avalon.nsfeo.util.DialogFactory
-import old.nsfeo.R
 
 public class SessionLoginFragment: Fragment() {
 
@@ -21,8 +21,7 @@ public class SessionLoginFragment: Fragment() {
 		val manager = this.getFragmentManager()
 
 		// Inflate the view and set component behaviors
-		val v = inflater!!.inflate(R.layout.session_login, container, false)
-		with (v) {
+		with (inflater!!.inflate(R.layout.session_login, container, false)) {
 
 			// Get references to the email and password fields for later use
 			val email = (this.findViewById(R.id.email) as EditText)
@@ -53,9 +52,9 @@ public class SessionLoginFragment: Fragment() {
 					dialog.show()
 				}
 			}
-		}
 
-		return v
+			return this
+		}
 	}
 
 }
