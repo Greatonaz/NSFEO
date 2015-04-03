@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "old.nsfeo"
+        applicationId "com.avalon.nsfeo"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
@@ -19,6 +20,10 @@ android {
         }
     }
 
+	sourceSets.main {
+		java.srcDirs += 'src/main/kotlin'
+	}
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -27,7 +32,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+	compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.viewpagerindicator:library:2.4.1@aar'
     compile project(':androrm')
 }
