@@ -1,1 +1,1 @@
-include ':app', ':androrm'
+include ':app', ':androrm', ':gapp_engine'

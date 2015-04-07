@@ -2,37 +2,54 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+	compileSdkVersion 21
+	buildToolsVersion "21.1.2"
 
-    defaultConfig {
-        applicationId "com.avalon.nsfeo"
-        minSdkVersion 15
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+	defaultConfig {
+		applicationId "com.avalon.nsfeo"
+		minSdkVersion 15
+		targetSdkVersion 21
+		versionCode 1
+		versionName "1.0"
+	}
 
 	sourceSets.main {
 		java.srcDirs += 'src/main/kotlin'
 	}
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
+	packagingOptions {
+		exclude 'META-INF/LICENSE.txt'
+		exclude 'META-INF/NOTICE.txt'
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_7
+		targetCompatibility JavaVersion.VERSION_1_7
+	}
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+	compile project(':androrm')
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile project(':androrm')
+	compile 'com.android.support:appcompat-v7:21.0.3'
+	compile project(path: ':gapp_engine', configuration: 'android-endpoints')
+}
+buildscript {
+	ext.kotlin_version = '0.11.91.1'
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+}
+repositories {
+	mavenCentral()
 }

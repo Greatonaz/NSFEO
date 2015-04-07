@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import old.nsfeo.R
+import com.avalon.nsfeo.R
 
 public class SessionFragment: Fragment() {
 
@@ -64,6 +64,7 @@ public class SessionFragment: Fragment() {
 			// Set tab color for the view pager tabs: they should work automatically
 			val tabs = this.findViewById(R.id.tabs) as PagerTabStrip
 			tabs.setTabIndicatorColor(ctx.getResources().getColor(R.color.complement))
+			tabs.setTextColor(ctx.getResources().getColor(android.R.color.white))
 			tabs.setDrawFullUnderline(true)
 		}
 

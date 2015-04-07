@@ -9,8 +9,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.avalon.nsfeo
+import com.avalon.nsfeo.R
+import com.avalon.nsfeo.model.User
+import com.avalon.nsfeo.net.AppEngine
 import com.avalon.nsfeo.util.DialogFactory
-import old.nsfeo.R
+import com.google.api.client.extensions.android.http.AndroidHttp
+import com.google.api.client.extensions.android.json.AndroidJsonFactory
+import java.security.MessageDigest
+import java.util.concurrent.TimeUnit
+import com.avalon.backend.appEngineNSFEO.model as model
 
 public class SessionLoginFragment: Fragment() {
 
@@ -21,7 +29,7 @@ public class SessionLoginFragment: Fragment() {
 		val manager = this.getFragmentManager()
 
 		// Inflate the view and set component behaviors
-		val v = inflater!!.inflate(R.layout.session_login, container, false)
+		val v = inflater!!.inflate(nsfeo.R.layout.session_login, container, false)
 		with (v) {
 
 			// Get references to the email and password fields for later use
@@ -43,6 +51,14 @@ public class SessionLoginFragment: Fragment() {
 						// TODO: Connect to App Engine backend to get session information
 						// Login the user into the system and register adequate access tokens in the app
 						// Then, proceed to the main screen
+						val api_result = AppEngine.Task<User?> {
+
+							val gae_user: model.User = this.loginUser(email_raw, "").execute()
+							var user = User()
+
+							return@Task null
+
+						}.get(5000L, TimeUnit.MILLISECONDS)
 
 						dialog.dismiss()
 					}

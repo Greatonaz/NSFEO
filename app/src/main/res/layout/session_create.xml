@@ -13,7 +13,7 @@
 		android:id="@+id/email"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="55dp"
+		android:layout_marginTop="30dp"
 		android:layout_marginRight="16dp"
 		android:layout_marginLeft="16dp"
 		android:hint="@string/email_prompt"/>
@@ -42,8 +42,7 @@
 		android:layout_marginTop="30dp"
 		android:layout_marginLeft="16dp"
 		android:layout_marginRight="16dp"
-		android:linksClickable="true"
-		android:autoLink="web"/>
+		android:linksClickable="true" />
 
 	<Button
 		android:layout_width="196dp"
@@ -57,4 +56,5 @@
 		android:textColor="@android:color/white"
 		android:layout_below="@+id/disclaimer"
 		android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

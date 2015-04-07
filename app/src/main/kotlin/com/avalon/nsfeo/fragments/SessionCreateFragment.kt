@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.avalon.nsfeo.util.DialogFactory
-import old.nsfeo.R
+import com.avalon.nsfeo.R
 
 public class SessionCreateFragment: Fragment() {
 
