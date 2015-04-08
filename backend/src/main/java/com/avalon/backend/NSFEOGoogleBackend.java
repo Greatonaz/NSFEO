@@ -32,12 +32,9 @@ public class NSFEOGoogleBackend {
 
 	// TODO: These are not there yet, complete them with valid types
 	// TODO: Create intermediate GAE representations for our database model (must work on that one too)
+
 	@ApiMethod(name = "session.active")
 	public List<Object> listActiveGameSessions(final User user) {
-
-		if (user == null)
-			return Collections.emptyList();
-
 		return Collections.emptyList();
 	}
 	@ApiMethod(name = "session.create")

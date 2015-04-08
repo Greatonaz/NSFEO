@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Tonaz on 3/3/2015.
  */
-public class User extends Model{
+public class User extends Model {
 
     protected ForeignKeyField<UserSession> userSession = new ForeignKeyField<>(UserSession.class);
     protected ManyToManyField<User, User> friendList = new ManyToManyField<>(User.class, User.class);
