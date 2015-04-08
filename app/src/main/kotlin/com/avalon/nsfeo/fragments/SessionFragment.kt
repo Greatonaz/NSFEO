@@ -1,51 +1,21 @@
 package com.avalon.nsfeo.fragments
 
-import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerTabStrip
-import android.support.v4.view.ViewPager
+import android.support.v7.app.ActionBarActivity
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import com.avalon.nsfeo.R
+import com.avalon.nsfeo.util.DialogFactory
+import com.avalon.nsfeo.util.text
+import com.gc.materialdesign.views.Button
 
 public class SessionFragment: Fragment() {
-
-	private class SessionPageAdapter: FragmentPagerAdapter {
-
-		private val context: Context
-		private val login: Fragment
-		private val create_account: Fragment
-
-		public constructor(manager: FragmentManager, ctx: Context): super(manager) {
-
-			this.context = ctx
-			this.login = SessionLoginFragment()
-			this.create_account = SessionCreateFragment()
-		}
-
-		override fun getItem(position: Int): Fragment {
-
-			return when (position) {
-				0 -> this.login
-				1 -> this.create_account
-				else -> throw IndexOutOfBoundsException()
-			}
-		}
-		override fun getPageTitle(position: Int): CharSequence {
-
-			return when (position) {
-				0 -> this.context.getString(R.string.login).toUpperCase()
-				1 -> this.context.getString(R.string.create_account).toUpperCase()
-				else -> throw IndexOutOfBoundsException()
-			}
-		}
-		override fun getCount(): Int = 2
-
-	}
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View {
 
@@ -57,15 +27,42 @@ public class SessionFragment: Fragment() {
 		val v = inflater!!.inflate(R.layout.session, container, false)
 		with (v) {
 
-			// Provide the adapter for the view pager
-			val pager = this.findViewById(R.id.pager) as ViewPager
-			pager.setAdapter(SessionPageAdapter(manager, ctx))
+			val email_address = (this.findViewById(R.id.email_address) as EditText)
+			val password = (this.findViewById(R.id.password) as EditText)
 
-			// Set tab color for the view pager tabs: they should work automatically
-			val tabs = this.findViewById(R.id.tabs) as PagerTabStrip
-			tabs.setTabIndicatorColor(ctx.getResources().getColor(R.color.complement))
-			tabs.setTextColor(ctx.getResources().getColor(android.R.color.white))
-			tabs.setDrawFullUnderline(true)
+			(this.findViewById(R.id.start_session) as Button).setOnClickListener {
+
+				val raw_email = email_address.text.trim()
+				val raw_passwd = password.text.trim()
+
+				if (raw_email.isEmpty()) email_address.setError(ctx.getString(R.string.email_address_error))
+				else if (raw_passwd.isEmpty()) password.setError(ctx.getString(R.string.password_error))
+				else {
+
+					// Configure account
+					val dialog = DialogFactory.createProgressDialog(ctx, { dialog: DialogInterface ->
+
+
+						dialog.dismiss()
+					})
+					dialog.setOnCancelListener { dialog: DialogInterface ->
+
+						Toast.makeText(ctx, R.string.session_fail, Toast.LENGTH_SHORT).show()
+						dialog.dismiss()
+					}
+					dialog.setIndeterminate(true)
+					dialog.setMessage(ctx.getString(R.string.starting_session))
+					dialog.show()
+				}
+			}
+
+			// Set the toolbar
+			val toolbar = (this.findViewById(R.id.toolbar) as Toolbar)
+			with ((ctx as ActionBarActivity)) {
+
+				this.setSupportActionBar(toolbar)
+				this.getSupportActionBar().setDisplayShowTitleEnabled(false)
+			}
 		}
 
 		return v

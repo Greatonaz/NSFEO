@@ -7,27 +7,77 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
 
-	<!-- TODO: Style me further! -->
 	<android.support.v7.widget.Toolbar
 		android:id="@+id/toolbar"
 		android:layout_width="match_parent"
-		android:layout_height="200dp"
-	    android:background="@color/primary" />
+		android:layout_height="320dp"
+	    android:elevation="2dp"
+		android:background="@color/primary">
 
-	<android.support.v4.view.ViewPager
-		android:id="@+id/pager"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-
-		<android.support.v4.view.PagerTabStrip
-			android:id="@+id/tabs"
+		<RelativeLayout
+			android:id="@+id/toolbar_layout"
 			android:layout_width="match_parent"
-			android:layout_height="70dp"
-		    android:layout_gravity="top"
-		    android:background="@color/primary_dark"
-		    android:paddingTop="4dp"
-		    android:paddingBottom="4dp" />
+			android:layout_height="match_parent"
+			android:layout_marginEnd="15dp"
+			android:layout_marginRight="15dp" >
 
-	</android.support.v4.view.ViewPager>
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textEmailAddress"
+				android:ems="10"
+				android:id="@+id/email_address"
+				android:layout_above="@+id/password"
+				android:layout_centerHorizontal="true"
+				android:layout_marginBottom="10dp"
+				android:hint="@string/email_address_hint"
+				android:textColor="@android:color/white"
+				android:textColorHint="@color/hint_foreground_material_dark"
+				android:textSize="22sp" />
+
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textPassword"
+				android:ems="10"
+				android:id="@+id/password"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:layout_marginBottom="34dp"
+				android:hint="@string/password_hint"
+				android:textColor="@android:color/white"
+				android:textColorHint="@color/hint_foreground_material_dark"
+				android:textSize="22sp" />
+
+		</RelativeLayout>
+	</android.support.v7.widget.Toolbar>
+
+	<com.gc.materialdesign.views.ButtonRectangle
+		android:id="@+id/start_session"
+		android:text="@string/start_session"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/primary_dark"
+		android:elevation="1dp"
+		android:layout_marginTop="30dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginEnd="16dp"
+		android:textSize="20sp"
+		android:textColor="@android:color/white" />
+
+	<TextView
+		android:id="@+id/disclaimer"
+		android:text="@string/disclaimer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="30dp"
+		android:layout_marginBottom="30dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginLeft="16dp"
+		android:linksClickable="true" />
 
 </LinearLayout>

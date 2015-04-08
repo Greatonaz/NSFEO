@@ -1,20 +1,15 @@
 <resources>
     <string name="app_name">NSFEO</string>
-	<string name="title_activity_main_menu">MainMenu</string>
 
-	<string name="login">LOG IN</string>
-	<string name="create_account">CREATE ACCOUNT</string>
+	<!-- Session -->
+	<string name="disclaimer">By clicking above, you agree to our <a href="%s/terms">terms of usage</a> and <a href="%s/privacy">privacy statement</a>.</string>
+	<string name="email_address_hint">Email address</string>
+	<string name="password_hint">Password</string>
+	<string name="start_session">START SESSION</string>
+	<string name="starting_session">Starting session… Please wait</string>
+	<string name="email_address_error">Email address cannot be empty</string>
+	<string name="password_error">Password cannot be empty</string>
+	<string name="session_fail">Failed to start a session. Please try again</string>
 
-	<string name="email_prompt">Email address</string>
-	<string name="email_hint">me@example.com</string>
-	<string name="password_prompt">Password</string>
-	<string name="login_prompt">Login</string>
-	<string name="logging_in">Logging in… Please wait.</string>
-	<string name="login_failure">Failed to login to your account. Please try again.</string>
-	<string name="email_empty">Email address cannot be empty</string>
-	<string name="password_empty">Password cannot be empty</string>
 
-	<string name="disclaimer">By signing in, you agree to our <a href="http://127.0.0.1">terms of usage</a> and <a href="http://127.0.0.1">privacy statement</a>.</string>
-	<string name="creating_account">Creating your account… Please wait.</string>
-	<string name="create_fail">Failed to create your account. Please try again later.</string>
 </resources>

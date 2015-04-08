@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/NSFEO.iml" filepath="$PROJECT_DIR$/NSFEO.iml" />
       <module fileurl="file://$PROJECT_DIR$/androrm/androrm.iml" filepath="$PROJECT_DIR$/androrm/androrm.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
     </modules>
   </component>
 </project>
-
