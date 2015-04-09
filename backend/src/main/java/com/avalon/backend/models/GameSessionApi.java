@@ -1,7 +1,7 @@
 package com.avalon.backend.models;
 
 import com.avalon.backend.NSFEOGoogleBackend;
-import com.avalon.backend.beans.Player;
+import com.avalon.backend.beans.gamesession.Player;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -9,14 +9,12 @@ import com.google.api.server.spi.config.Named;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.users.User;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

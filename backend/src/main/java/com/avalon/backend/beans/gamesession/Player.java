@@ -1,4 +1,7 @@
-package com.avalon.backend.beans;
+package com.avalon.backend.beans.gamesession;
+
+import com.avalon.backend.beans.cards.Card;
+import com.avalon.backend.beans.user.GameUser;
 
 import java.util.List;
 
