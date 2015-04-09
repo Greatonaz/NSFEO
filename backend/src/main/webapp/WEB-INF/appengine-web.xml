@@ -6,5 +6,11 @@
 
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+        <property name="cloudsql.url.dev"
+            value="jdbc:mysql://127.0.0.1:3306/NSFEO_DB?user=root"/>
+        <property name="cloudsql.url"
+            value="jdbc:google:mysql://tidal-axis-859:nsfeo/NSFEO_DB?user=root"/>
+        <property name="environment" value="SystemProperty.Value.Production"/>
+
 	</system-properties>
 </appengine-web-app>
