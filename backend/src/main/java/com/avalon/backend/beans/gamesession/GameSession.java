@@ -109,6 +109,11 @@ public class GameSession {
         return rounds;
     }
 
+    public Round getCurrentRound(){
+        int size = this.getRounds().size();
+        return this.getRound(size - 1);
+    }
+
     public void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }

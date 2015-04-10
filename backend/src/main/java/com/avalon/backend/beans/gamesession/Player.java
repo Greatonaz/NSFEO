@@ -59,6 +59,18 @@ public class Player {
         this.hand = hand;
     }
 
+    public WhiteCard getCard(int index){
+        return this.getHand().get(index);
+    }
+
+    public boolean removeCard(WhiteCard card){
+        return this.getHand().remove(card);
+    }
+
+    public void addCard(WhiteCard card){
+        this.getHand().add(card)
+;    }
+
     public int getPoints() {
         return points;
     }

@@ -1,8 +1,10 @@
 package com.avalon.backend.models;
 
 import com.avalon.backend.NSFEOGoogleBackend;
+import com.avalon.backend.beans.cards.WhiteCard;
 import com.avalon.backend.beans.gamesession.GameSession;
 import com.avalon.backend.beans.gamesession.Player;
+import com.avalon.backend.beans.gamesession.Round;
 import com.avalon.backend.beans.user.GameUser;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -93,22 +95,136 @@ public class GameSessionApi {
     }
 
     @ApiMethod(name = "session.join")
-    public Object joinActiveSession(final User user, final @Named("session") int session) {
+    public GameSession joinActiveSession(final User user, final @Named("email_address") String email, final Key session) {
+
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Transaction txn = datastoreService.beginTransaction();
-        return null;
+
+        try {
+
+            Filter filter;
+            Query query;
+            Entity result;
+
+            query = new Query("GameSession").setFilter(new FilterPredicate("Id", Query.FilterOperator.EQUAL, session));
+            result = datastoreService.prepare(query).asSingleEntity();
+            GameSession gameSession = new GameSession(result);
+
+            for(Player player: gameSession.getPlayers()){
+
+                if(player.getGameUser().getEmail().equalsIgnoreCase(email)){
+                    player.setHasJoined(true);
+                    datastoreService.put(player.toEntity());
+                }
+
+            }
+
+            datastoreService.put(gameSession.toEntity());
+            txn.commit();
+
+            return gameSession;
+
+        } finally {
+
+            if (txn.isActive()) {
+                txn.rollback();
+            }
+
+        }
     }
+
     @ApiMethod(name = "session.leave")
-    public Object leaveActiveSession(final User user, final @Named("session") int session) {
+    public GameSession leaveActiveSession(final User user,  final @Named("email_address") String email, final Key session) {
+
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Transaction txn = datastoreService.beginTransaction();
-        return null;
+        try {
+
+            Filter filter;
+            Query query;
+            Entity result;
+
+            query = new Query("GameSession").setFilter(new FilterPredicate("Id", Query.FilterOperator.EQUAL, session));
+            result = datastoreService.prepare(query).asSingleEntity();
+            GameSession gameSession = new GameSession(result);
+
+            for(Player player: gameSession.getPlayers()){
+
+                if(player.getGameUser().getEmail().equalsIgnoreCase(email)){
+                    gameSession.removePlayer(player);
+                }
+
+            }
+
+            datastoreService.put(gameSession.toEntity());
+            txn.commit();
+
+            return gameSession;
+
+        } finally {
+
+            if (txn.isActive()) {
+                txn.rollback();
+            }
+
+        }
     }
+
     @ApiMethod(name = "session.play")
-    public Object playRoundCard(final User user, final @Named("session") int session, final @Named("card") int card) {
+    public GameSession playRoundCard(final User user, final Key session, final @Named("cards") List<Integer> cardIndexes, final @Named("email_address") String email) {
+
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Transaction txn = datastoreService.beginTransaction();
-        return null;
+
+        try {
+
+            Entity result;
+
+            // Get the GameSession
+            Query query = new Query("GameSession").setFilter(new FilterPredicate("Id", Query.FilterOperator.EQUAL, session));
+            result = datastoreService.prepare(query).asSingleEntity();
+            GameSession gameSession = new GameSession(result);
+
+            // Find the player
+            Player player = GameSessionManager.findPlayer(gameSession.getPlayers(), email);
+
+            if(player == null){
+                // THIS SHOULD NEVER HAPPEN
+                return null;
+            }
+
+            // Get the cards the player will submit and take them out of the player's hand
+            List<WhiteCard> cards = GameSessionManager.getCards(cardIndexes, player);
+            GameSessionManager.removeFromHand(cards, player);
+
+            // Submit them
+            Round round = gameSession.getCurrentRound();
+            round.addSubmission(player, cards);
+
+            // Verify if the round is ready
+            boolean isRoundReady = GameSessionManager.isRoundReady(gameSession.getPlayers(), round.getSubmissions());
+            round.setReady(isRoundReady);
+
+            // If the round is ready, create a new round or something here
+
+            // Deal cards to player and remove dealt cards from deck
+            int cardsPlayed = cards.size();
+            GameSessionManager.dealNewCards(cardsPlayed, gameSession.getDeck(), player);
+
+            // Store everything
+            datastoreService.put(player.toEntity());
+            datastoreService.put(gameSession.toEntity());
+            txn.commit();
+
+            return gameSession;
+
+        } finally {
+
+            if (txn.isActive()) {
+                txn.rollback();
+            }
+
+        }
     }
     @ApiMethod(name = "session.judge")
     public Object selectRoundWinner(final User user, final @Named("session") int session, final @Named("card") int card) {

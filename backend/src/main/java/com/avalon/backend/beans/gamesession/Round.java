@@ -20,6 +20,7 @@ public class Round {
     private int judge;
     private int winner;
     private Map<Player, List<WhiteCard>> submissions;
+    private boolean isReady;
 
     public Round(){
 
@@ -32,6 +33,7 @@ public class Round {
         this.setJudge((Integer) entity.getProperty("Judge"));
         this.setWinner((Integer) entity.getProperty("Winner"));
         this.setSubmissions((Map<Player, List<WhiteCard>>) entity.getProperty("Submissions"));
+        this.setReady((Boolean) entity.getProperty("Ready"));
     }
 
     public String getId() {
@@ -86,6 +88,14 @@ public class Round {
         this.submissions = submissions;
     }
 
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean isReady) {
+        this.isReady = isReady;
+    }
+
     public Entity toEntity(){
         Entity entity = new Entity("Round");
         entity.setProperty("Id",this.getId());
@@ -94,6 +104,7 @@ public class Round {
         entity.setProperty("Judge",this.getJudge());
         entity.setProperty("Winner", this.getWinner());
         entity.setProperty("Submissions", this.getSubmissions());
+        entity.setProperty("Ready", this.isReady());
         return entity;
     }
 }
