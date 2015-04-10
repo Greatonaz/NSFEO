@@ -2,7 +2,9 @@ package com.avalon.backend.beans.user;
 
 import com.avalon.backend.beans.gamesession.GameSession;
 import com.avalon.backend.beans.user.Location.Location;
+import com.google.appengine.api.datastore.EmbeddedEntity;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 
 import org.joda.time.DateTime;
 
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class GameUser {
 
-    private String id;
+    private Key id;
     private String email;
     private String name;
     private DateTime date_of_birth;
@@ -24,7 +26,7 @@ public class GameUser {
 
     public GameUser(Entity entity){
 
-        this.setId((String) entity.getProperty("id"));
+        this.setId((Key) entity.getProperty("id"));
         this.setEmail((String) entity.getProperty("Email"));
         this.setName((String)entity.getProperty("Name"));
         this.setDateOfBirth(DateTime.parse((String) entity.getProperty("DOB")));
@@ -35,11 +37,11 @@ public class GameUser {
 
     }
 
-    public String getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
@@ -97,5 +99,30 @@ public class GameUser {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public Entity toEntity(){
+        Entity entity = new Entity("GameUser");
+        entity.setProperty("id", this.getId());
+        entity.setProperty("Name", this.getName());
+        entity.setProperty("DOB", this.getDateOfBirth());
+        entity.setProperty("Location", this.getLocation());
+        entity.setProperty("Sessions", this.getSessions());
+        entity.setProperty("Profile", this.getProfile());
+        return entity;
+    }
+
+    public EmbeddedEntity toEmbedded(){
+
+        EmbeddedEntity entity = new EmbeddedEntity();
+
+        entity.setProperty("id", this.getId());
+        entity.setProperty("Name", this.getName());
+        entity.setProperty("DOB", this.getDateOfBirth());
+        entity.setProperty("Location", this.getLocation());
+        entity.setProperty("Sessions", this.getSessions());
+        entity.setProperty("Profile", this.getProfile());
+
+        return entity;
     }
 }

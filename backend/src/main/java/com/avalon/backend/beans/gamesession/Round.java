@@ -88,5 +88,12 @@ public class Round {
 
     public Entity toEntity(){
         Entity entity = new Entity("Round");
+        entity.setProperty("Id",this.getId());
+        entity.setProperty("Challenge",this.getChallenge());
+        entity.setProperty("Modifier",this.getModifier());
+        entity.setProperty("Judge",this.getJudge());
+        entity.setProperty("Winner", this.getWinner());
+        entity.setProperty("Submissions", this.getSubmissions());
+        return entity;
     }
 }

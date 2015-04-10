@@ -3,7 +3,10 @@ package com.avalon.backend.beans.gamesession;
 import com.avalon.backend.beans.cards.Card;
 import com.avalon.backend.beans.cards.WhiteCard;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +15,7 @@ import java.util.List;
 public class GameSession {
 
     // Game Session Management
-    private String id;
+    private Key id;
     private String name;
     private String language;
 
@@ -28,7 +31,8 @@ public class GameSession {
     private double max_response_time;
 
     public GameSession(Entity entity){
-        this.setId((String) entity.getProperty("Id"));
+
+        this.setId((Key) entity.getProperty("Id"));
         this.setName((String)entity.getProperty("Name"));
         this.setLanguage((String) entity.getProperty("Language"));
         this.setPlayers((List<Player>) entity.getProperty("Players"));
@@ -38,15 +42,22 @@ public class GameSession {
         this.setMaxResponseTime((Integer) entity.getProperty("MaxResponseTime"));
     }
 
-    public GameSession(){
-        // Empty constructor
+    public GameSession(String session_name, int round_limit){
+
+        this.setId(KeyFactory.createKey("GameSession", session_name));
+        this.setRoundLimit(round_limit);
+        this.setName("");
+        this.setLanguage("");
+        this.setPlayers( new ArrayList<Player>());
+        this.setDeck( new ArrayList<WhiteCard>());
+        this.setRounds( new ArrayList<Round>());
     }
 
-    public String getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
@@ -64,6 +75,10 @@ public class GameSession {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public void setPlayers(List<Player> players) {
@@ -116,5 +131,18 @@ public class GameSession {
 
     public void setMaxResponseTime(double time) {
         this.max_response_time = time;
+    }
+
+    public Entity toEntity(){
+        Entity entity = new Entity("GameSession");
+        entity.setProperty("Id",this.getId());
+        entity.setProperty("Name",this.getName());
+        entity.setProperty("Language",this.getLanguage());
+        entity.setProperty("Players",this.getPlayers());
+        entity.setProperty("Deck",this.getDeck());
+        entity.setProperty("Rounds",this.getRounds());
+        entity.setProperty("RoundLimit",this.getRoundLimit());
+        entity.setProperty("MaxResponseTime",this.getMaxResponseTime());
+        return entity;
     }
 }

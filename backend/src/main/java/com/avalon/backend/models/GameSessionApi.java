@@ -1,7 +1,9 @@
 package com.avalon.backend.models;
 
 import com.avalon.backend.NSFEOGoogleBackend;
+import com.avalon.backend.beans.gamesession.GameSession;
 import com.avalon.backend.beans.gamesession.Player;
+import com.avalon.backend.beans.user.GameUser;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -12,6 +14,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.users.User;
 
@@ -35,7 +39,7 @@ import java.util.List;
 public class GameSessionApi {
 
     @ApiMethod(name = "session.create")
-    public Object createNewGameSession(final User user, final @Named("session_name") String session_name,
+    public GameSession createNewGameSession(final User user, final @Named("session_name") String session_name,
                                        final @Named("round_limit") int round_limit) {
 
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
@@ -44,18 +48,12 @@ public class GameSessionApi {
         try {
 
             Key newGameSessionKey = KeyFactory.createKey("TaskBeanParent", "todo.txt");
-            Entity gameSessionEntity = new Entity("GameSession", newGameSessionKey.getId(), newGameSessionKey);
+            GameSession gameSession = new GameSession(session_name, round_limit);
 
-            gameSessionEntity.setProperty("Name", session_name);
-            gameSessionEntity.setProperty("RoundLimit", round_limit);
-            gameSessionEntity.setProperty("CurrentRound", 0);
-            gameSessionEntity.setProperty("JudgeIndex", 0);
-            gameSessionEntity.setProperty("IsSessionReady", false);
-
-            datastoreService.put(gameSessionEntity);
+            datastoreService.put(gameSession.toEntity());
             txn.commit();
 
-            return gameSessionEntity;
+            return gameSession;
 
         } finally {
             if (txn.isActive()) {
@@ -66,25 +64,29 @@ public class GameSessionApi {
     }
 
     @ApiMethod(name = "session.invite")
-    public Object inviteToGameSession(final User user, final @Named("guest") int guest) {
+    public Object inviteToGameSession(final User user, final Key session, final @Named("email_address") String email) {
 
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Transaction txn = datastoreService.beginTransaction();
 
         try {
 
-            Key gameSessionKey = KeyFactory.createKey("GameSessionParent", "asalieri");
-            Query query = new Query(gameSessionKey);
+            Filter filter = new FilterPredicate("Email", Query.FilterOperator.EQUAL, email);
+            Query query = new Query("GameUser").setFilter(filter);
 
             Entity result = datastoreService.prepare(query).asSingleEntity();
-            List<Player> playerList = (List<Player>)result.getProperty("players");
-            Player player = new Player();
-            /*player.setGameUser();
-            playerList.add()*/
-            //updatedEmployee.addProperty(makeProperty("nickname", makeValue(newNickname)));
+            Player player = new Player(new GameUser(result));
+            datastoreService.put(player.toEntity());
 
+            query = new Query("GameSession").setFilter(new FilterPredicate("Id", Query.FilterOperator.EQUAL, session));
+            result = datastoreService.prepare(query).asSingleEntity();
+            GameSession gameSession = new GameSession(result);
+            gameSession.addPlayer(player);
+
+            datastoreService.put(gameSession.toEntity());
             txn.commit();
 
+            return true;
         } finally {
             if (txn.isActive()) { txn.rollback(); }
         }
