@@ -1,6 +1,7 @@
 package com.avalon.backend.models;
 
 import com.avalon.backend.beans.cards.WhiteCard;
+import com.avalon.backend.beans.gamesession.GameSession;
 import com.avalon.backend.beans.gamesession.Player;
 import com.avalon.backend.beans.gamesession.Round;
 
@@ -73,15 +74,25 @@ public class GameSessionManager {
     public static void dealNewCards(int cardsPlayed, List<WhiteCard> deck, Player player){
 
         for(int index = 0; index < cardsPlayed; index++){
-            player.addCard(deck.remove(randomWithRange(0, deck.size()-1)));
+            player.addCard(deck.remove(Utils.randomWithRange(0, deck.size() - 1)));
         }
 
     }
 
-    private static int randomWithRange(int min, int max)
-    {
-        int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
+    // Conditions: Game Session is created, all of the players have accepted or rejected the game
+    // there's at least 3 players in the session.
+    // We will generate the decks for this game session
+    // and start the first round
+    // pinging all the players to submit
+    public void startGame(GameSession gameSession){
+        gameSession.setBlackDeck(DeckBuilder.createBlackDeck(7, gameSession.getPlayers().size()));
+        gameSession.setDeck(DeckBuilder.createWhiteDeck(gameSession.getRoundLimit(), gameSession.getPlayers().size()));
+        for(Player player : gameSession.getPlayers()){
+            GameSessionManager.dealNewCards(10, gameSession.getDeck(), player);
+        }
+        // Game Session is
     }
+
+
 
 }

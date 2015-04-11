@@ -49,7 +49,6 @@ public class GameSessionApi {
 
         try {
 
-            Key newGameSessionKey = KeyFactory.createKey("TaskBeanParent", "todo.txt");
             GameSession gameSession = new GameSession(session_name, round_limit);
 
             datastoreService.put(gameSession.toEntity());

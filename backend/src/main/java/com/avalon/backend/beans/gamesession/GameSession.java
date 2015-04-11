@@ -1,5 +1,6 @@
 package com.avalon.backend.beans.gamesession;
 
+import com.avalon.backend.beans.cards.BlackCard;
 import com.avalon.backend.beans.cards.Card;
 import com.avalon.backend.beans.cards.WhiteCard;
 import com.google.appengine.api.datastore.Entity;
@@ -24,6 +25,7 @@ public class GameSession {
 
     // Decks
     private List<WhiteCard> deck;
+    private List<BlackCard> blackDeck;
 
     // Round Management
     private List<Round> rounds;
@@ -37,7 +39,8 @@ public class GameSession {
         this.setName((String)entity.getProperty("Name"));
         this.setLanguage((String) entity.getProperty("Language"));
         this.setPlayers((List<Player>) entity.getProperty("Players"));
-        this.setDeck((List<WhiteCard>) entity.getProperty("Cards"));
+        this.setDeck((List<WhiteCard>) entity.getProperty("Deck"));
+        this.setBlackDeck((List<BlackCard>) entity.getProperty("BlackDeck"));
         this.setRounds((List<Round>) entity.getProperty("Rounds"));
         this.setRoundLimit((Integer) entity.getProperty("RoundLimit"));
         this.setMaxResponseTime((Integer) entity.getProperty("MaxResponseTime"));
@@ -54,6 +57,7 @@ public class GameSession {
         this.setLanguage("");
         this.setPlayers( new ArrayList<Player>());
         this.setDeck( new ArrayList<WhiteCard>());
+        this.setBlackDeck(new ArrayList<BlackCard>());
         this.setRounds( new ArrayList<Round>());
     }
 
@@ -145,8 +149,27 @@ public class GameSession {
         this.currentRound = currentRound;
     }
 
+    public List<BlackCard> getBlackDeck() {
+        return blackDeck;
+    }
+
+    public void setBlackDeck(List<BlackCard> blackDeck) {
+        this.blackDeck = blackDeck;
+    }
+
     public void moveToNextRound(){
+        Round previousRound = this.getCurrentRound();
+        Round newRound = new Round();
+        newRound.setChallenge(this.getBlackDeck().get(this.currentRound + 1));
+        newRound.setJudge(previousRound.getJudge()+1);
+        this.rounds.add(newRound);
         this.setCurrentRound(this.currentRound+1);
+    }
+
+    public void start(){
+        Round newRound = new Round();
+        newRound.setChallenge(this.getBlackDeck().get(0));
+        this.rounds.add(newRound);
     }
 
     public Entity toEntity(){
@@ -156,6 +179,7 @@ public class GameSession {
         entity.setProperty("Language",this.getLanguage());
         entity.setProperty("Players",this.getPlayers());
         entity.setProperty("Deck",this.getDeck());
+        entity.setProperty("BlackDeck",this.getBlackDeck());
         entity.setProperty("Rounds",this.getRounds());
         entity.setProperty("RoundLimit",this.getRoundLimit());
         entity.setProperty("MaxResponseTime",this.getMaxResponseTime());
