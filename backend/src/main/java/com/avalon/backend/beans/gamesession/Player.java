@@ -99,4 +99,8 @@ public class Player {
         return entity;
     }
 
+    public void incrementPoints(){
+        this.setPoints(this.getPoints()+1);
+    }
+
 }

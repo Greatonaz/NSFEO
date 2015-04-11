@@ -2,6 +2,7 @@ package com.avalon.backend.models;
 
 import com.avalon.backend.beans.cards.WhiteCard;
 import com.avalon.backend.beans.gamesession.Player;
+import com.avalon.backend.beans.gamesession.Round;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -82,4 +83,5 @@ public class GameSessionManager {
         int range = (max - min) + 1;
         return (int)(Math.random() * range) + min;
     }
+
 }

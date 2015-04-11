@@ -29,6 +29,7 @@ public class GameSession {
     private List<Round> rounds;
     private int roundLimit;
     private double max_response_time;
+    private int currentRound;
 
     public GameSession(Entity entity){
 
@@ -40,12 +41,15 @@ public class GameSession {
         this.setRounds((List<Round>) entity.getProperty("Rounds"));
         this.setRoundLimit((Integer) entity.getProperty("RoundLimit"));
         this.setMaxResponseTime((Integer) entity.getProperty("MaxResponseTime"));
+        this.setCurrentRound((Integer) entity.getProperty("CurrentRound"));
+
     }
 
     public GameSession(String session_name, int round_limit){
 
         this.setId(KeyFactory.createKey("GameSession", session_name));
         this.setRoundLimit(round_limit);
+        this.setCurrentRound(0);
         this.setName("");
         this.setLanguage("");
         this.setPlayers( new ArrayList<Player>());
@@ -110,8 +114,7 @@ public class GameSession {
     }
 
     public Round getCurrentRound(){
-        int size = this.getRounds().size();
-        return this.getRound(size - 1);
+        return this.getRound(this.currentRound);
     }
 
     public void setRounds(List<Round> rounds) {
@@ -138,6 +141,14 @@ public class GameSession {
         this.max_response_time = time;
     }
 
+    public void setCurrentRound(int currentRound) {
+        this.currentRound = currentRound;
+    }
+
+    public void moveToNextRound(){
+        this.setCurrentRound(this.currentRound+1);
+    }
+
     public Entity toEntity(){
         Entity entity = new Entity("GameSession");
         entity.setProperty("Id",this.getId());
@@ -148,6 +159,7 @@ public class GameSession {
         entity.setProperty("Rounds",this.getRounds());
         entity.setProperty("RoundLimit",this.getRoundLimit());
         entity.setProperty("MaxResponseTime",this.getMaxResponseTime());
+        entity.setProperty("CurrentRound",this.getCurrentRound());
         return entity;
     }
 }

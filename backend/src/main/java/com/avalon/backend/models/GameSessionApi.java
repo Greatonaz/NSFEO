@@ -205,8 +205,6 @@ public class GameSessionApi {
             boolean isRoundReady = GameSessionManager.isRoundReady(gameSession.getPlayers(), round.getSubmissions());
             round.setReady(isRoundReady);
 
-            // If the round is ready, create a new round or something here
-
             // Deal cards to player and remove dealt cards from deck
             int cardsPlayed = cards.size();
             GameSessionManager.dealNewCards(cardsPlayed, gameSession.getDeck(), player);
@@ -226,11 +224,52 @@ public class GameSessionApi {
 
         }
     }
+
     @ApiMethod(name = "session.judge")
-    public Object selectRoundWinner(final User user, final @Named("session") int session, final @Named("card") int card) {
+    public Object selectRoundWinner(final User user, final @Named("session") int session, final @Named("player") int playerIndex) {
+
+
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Transaction txn = datastoreService.beginTransaction();
-        return null;
+
+        try {
+
+            Entity result;
+
+            // Get the GameSession
+            Query query = new Query("GameSession").setFilter(new FilterPredicate("Id", Query.FilterOperator.EQUAL, session));
+            result = datastoreService.prepare(query).asSingleEntity();
+            GameSession gameSession = new GameSession(result);
+
+            // Find the player
+            Round round = gameSession.getCurrentRound();
+            round.setWinner(playerIndex);
+
+            Player player = gameSession.getPlayers().get(playerIndex);
+            player.incrementPoints();
+
+            // Push Notifications
+
+            // Increment current round
+            gameSession.moveToNextRound();
+
+            // Store everything
+            datastoreService.put(round.toEntity());
+            datastoreService.put(player.toEntity());
+            datastoreService.put(gameSession.toEntity());
+
+            txn.commit();
+
+            return gameSession;
+
+        } finally {
+
+            if (txn.isActive()) {
+                txn.rollback();
+            }
+
+        }
+
     }
 
 }
