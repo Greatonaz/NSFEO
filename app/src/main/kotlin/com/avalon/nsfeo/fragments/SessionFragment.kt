@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.IBinder
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.avalon.nsfeo.R
 import com.avalon.nsfeo.net.NSFEOService
-import com.avalon.nsfeo.net.NSFEOServiceConnection
 import com.avalon.nsfeo.util.DialogFactory
+import com.avalon.nsfeo.util.postServiceTask
 import com.avalon.nsfeo.util.text
 import com.gc.materialdesign.views.Button
 
@@ -53,21 +55,30 @@ public class SessionFragment: Fragment() {
 					val dialog = DialogFactory.createProgressDialog(ctx, { dialog: DialogInterface ->
 
 						// Get a hold at our trusty service
-						val connect = NSFEOServiceConnection()
-						ctx.bindService(Intent(ctx, javaClass<NSFEOService>()), connect, Context.BIND_AUTO_CREATE)
+						ctx.postServiceTask(Intent(ctx, javaClass<NSFEOService>()), Context.BIND_AUTO_CREATE) { binder: IBinder? ->
 
-						// Try to authenticate the user through provided credentials
-						if (connect.getService().loginByCredentials(ctx, raw_email, raw_passwd)) {
+							if (binder != null) {
 
-							with (manager) {
+								Log.d("NSFEO Service (Session)", "Bound to service")
 
-								this.beginTransaction()
-									.replace(R.id.container, GameDashboardFragment(), SessionFragment.DASHBOARD_TRANSACTION_TAG)
-									.commit()
+								val service = (binder as NSFEOService.NSFEOBinder).getService()
+								if (service.loginByCredentials(ctx, raw_email, raw_passwd)) {
+
+									// If login succeeded, swap fragment to the game dashboard
+									with (manager) {
+
+										this.beginTransaction()
+											.replace(R.id.container, GameDashboardFragment(), SessionFragment.DASHBOARD_TRANSACTION_TAG)
+											.commit()
+									}
+								}
+								else
+									Toast.makeText(ctx, R.string.session_fail, Toast.LENGTH_SHORT).show()
+
 							}
+							else
+								Log.d("NSFEO Service (Session)", "Unound from service")
 						}
-						else
-							Toast.makeText(ctx, R.string.session_fail, Toast.LENGTH_SHORT).show()
 
 						dialog.dismiss()
 					})

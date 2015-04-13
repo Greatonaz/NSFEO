@@ -37,6 +37,13 @@
         <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-0e20bb662be92fa3d23ee8ff03392fd0d7c7d593.jar" />
     </item>
     <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/20041127.091804/17b1ff59f0916ac7bcff704e712415a0d49d468d/commons-codec-20041127.091804.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="17b1ff59f0916ac7bcff704e712415a0d49d468d">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/commons-codec-20041127.091804-780b90a4cd7e1f6e6076bcc4288dce4f25489573.jar" />
+    </item>
+    <item
         jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/0.11.91.1/8f8028b05d6a571eed9f3678f2fd17e71878a149/kotlin-stdlib-0.11.91.1.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -47,7 +54,7 @@
         jar="/home/a-carrot/Documents/Code projects/NSFEO/backend/build/libs/backend-android-endpoints.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="1499387548b7c7acb736bfb01a96d0d816ab549a">
+        sha1="ecf8a60a0c53eea4cdd812ab5711878e69179e55">
         <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/backend-android-endpoints-14c006fd140e663036540b6c236d075bef9a1389.jar" />
     </item>
     <item

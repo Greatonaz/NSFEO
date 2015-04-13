@@ -17,23 +17,21 @@ public class NSFEOService: Service() {
 
 		val WEB_CLIENT_ID: String = "137906636555-jdq0r7bd2d8ar30gsepk6k262f0g2cs6.apps.googleusercontent.com"
 		val DEBUG_MODE: Boolean = true
-		val DEBUG_EMAIL_ADDRESS: String = "test@nsfeo.com"
-		val DEBUG_PASSWORD_SHA1: String = "ef55ec6ce4979cdb824b410c31de40e667ace61e"
+		val DEBUG_EMAIL_ADDRESS: String = "debug@nsfeo.com"
+		val DEBUG_PASSWORD_SHA1: String = "ef55ec6ce4979cdb824b410c31de40e667ace61e"  // nsfeo-debug
 
 	}
-	public inner class NSFEOBinder: Binder() {
-		public fun getService(): NSFEOService = this@NSFEOService
+	public inner class NSFEOBinder(private val service: NSFEOService): Binder() {
+		public fun getService(): NSFEOService = this.service
 	}
 	// Recall we carry an instance of the outer class: use "with (this@NSFEOService) { ... }" for simplicity
 
-	private val binder: NSFEOBinder = NSFEOBinder()
+	private val binder: NSFEOBinder
 	private var user: User? = null
 
-	override fun onStartCommand(i: Intent, flags: Int, start_id: Int): Int {
+	init { this.binder = NSFEOBinder(this) }
 
-		// TODO: Do something interesting here
-		return super.onStartCommand(i, flags, start_id)
-	}
+	override fun onStartCommand(i: Intent?, flags: Int, start_id: Int): Int = Service.START_STICKY
 	override fun onBind(i: Intent): NSFEOBinder { return this.binder }
 
 	public fun hasLoggedInUser(): Boolean = (this.user != null)

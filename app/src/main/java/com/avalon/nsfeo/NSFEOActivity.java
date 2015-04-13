@@ -1,11 +1,15 @@
 package com.avalon.nsfeo;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import com.avalon.nsfeo.fragments.GameDashboardFragment;
 import com.avalon.nsfeo.fragments.SessionFragment;
@@ -15,7 +19,7 @@ import com.avalon.nsfeo.model.GameSession;
 import com.avalon.nsfeo.model.User;
 import com.avalon.nsfeo.model.UserSession;
 import com.avalon.nsfeo.net.NSFEOService;
-import com.avalon.nsfeo.net.NSFEOServiceConnection;
+import com.avalon.nsfeo.net.NSFEOService.NSFEOBinder;
 import com.orm.androrm.DatabaseAdapter;
 import com.orm.androrm.Model;
 
@@ -44,25 +48,37 @@ public class NSFEOActivity extends ActionBarActivity {
 		);
 
 		// Initialize (if not available) our trusty service
-		final Intent i = new Intent(this, NSFEOService.class);
-		final NSFEOServiceConnection connect = new NSFEOServiceConnection();
-		this.bindService(i, connect, Context.BIND_AUTO_CREATE);
-
 		final FragmentManager manager = this.getSupportFragmentManager();
-		if (!connect.getService().hasLoggedInUser()) {
+		this.startService(new Intent(this, NSFEOService.class));
 
-			final Fragment f = new SessionFragment();
-			manager.beginTransaction()
-				   .add(R.id.container, f, NSFEOActivity.LOGIN_TRANSACTION_TAG)
-				   .commit();
-		}
-		else {
+		// Bind to the service and get the current login status
+		this.bindService(new Intent(this, NSFEOService.class), new ServiceConnection() {
 
-			final Fragment f = new GameDashboardFragment();
-			manager.beginTransaction()
-					.add(R.id.container, f, NSFEOActivity.DASHBOARD_TRANSACTION_TAG)
-					.commit();
-		}
+			@Override
+			public void onServiceConnected(ComponentName name, IBinder binder) {
+
+				Log.d("NSFEO Service", "Bound to service");
+				final NSFEOService service = ((NSFEOBinder) (binder)).getService();
+
+				if (!service.hasLoggedInUser()) {
+
+					final Fragment f = new SessionFragment();
+					manager.beginTransaction()
+							.add(R.id.container, f, NSFEOActivity.LOGIN_TRANSACTION_TAG)
+							.commit();
+				}
+				else {
+
+					final Fragment f = new GameDashboardFragment();
+					manager.beginTransaction()
+							.add(R.id.container, f, NSFEOActivity.DASHBOARD_TRANSACTION_TAG)
+							.commit();
+				}
+			}
+			@Override
+			public void onServiceDisconnected(ComponentName name) { Log.d("NSFEO Service", "Unbound from service"); }
+
+		}, Context.BIND_AUTO_CREATE);
 
 		manager.executePendingTransactions();
 	}
