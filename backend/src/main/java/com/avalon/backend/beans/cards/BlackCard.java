@@ -14,6 +14,7 @@ public class BlackCard extends Card {
     public BlackCard(Entity entity){
 
         super((PropertyContainer) entity.getProperty("Card"));
+        this.setRequirements((Integer)entity.getProperty("Requirements"));
     }
 
     public int getRequirements() {
