@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Binder
+import android.util.Log
 import com.avalon.nsfeo.model.User
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
@@ -56,6 +57,7 @@ public class NSFEOService: Service() {
 					user.save(ctx)
 
 					this.user = user
+					Log.d("Service", "${this.user}")
 
 					return true
 				}

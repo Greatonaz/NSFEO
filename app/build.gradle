@@ -11,6 +11,8 @@ android {
 		targetSdkVersion 21
 		versionCode 1
 		versionName "1.0"
+		renderscriptTargetApi 20
+		renderscriptSupportModeEnabled true
 	}
 
 	sourceSets.main {
@@ -39,9 +41,9 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
 	compile 'com.android.support:appcompat-v7:22.0.0'
-	compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
 	compile project(path: ':backend', configuration: 'android-endpoints')
 	compile 'commons-codec:commons-codec:20041127.091804'
+	compile 'tk.zielony:carbon:0.7.2'
 }
 buildscript {
 	ext.kotlin_version = '0.11.91.1'

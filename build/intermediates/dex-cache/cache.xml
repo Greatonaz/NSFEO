@@ -2,11 +2,39 @@
 <items version="2" >
 
     <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/tk.zielony/carbon/0.7.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="64dd2ddabdaeec0c95a700f047e5381fd0ee2a14">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-9534f2518f79834c86410d9bdc9f83da844a5533.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.android/sdk/build-tools/21.1.2/renderscript/lib/renderscript-v8.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2b276904cd854be6d460f2bcec9cf2cddaf580c1">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/renderscript-v8-c992a0cd8dd8efbaabf7f424b0fce35e78e4d928.jar" />
+    </item>
+    <item
         jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/com.google.guava/guava-jdk5/13.0/381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7/guava-jdk5-13.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7">
         <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/guava-jdk5-13.0-263af4158f53bfa10d921039fe4661555ae72182.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/library-2.4.0-5e671404f5838563a56a757d7d7b1aaf070c6d32.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/com.caverock/androidsvg/1.2.1/d0cb3453e18fffeb053e9b7f052af3dcec9f75b4/androidsvg-1.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d0cb3453e18fffeb053e9b7f052af3dcec9f75b4">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/androidsvg-1.2.1-c64a3579f03c6cd7f0ee940b999e63659c28ff50.jar" />
     </item>
     <item
         jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.19.0/81dbf9795d387d5e80e55346582d5f2fb81a42eb/google-http-client-jackson2-1.19.0.jar"
@@ -21,6 +49,13 @@
         revision="21.1.2"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
         <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-75a5d087e156cc5168b90b4685c4dbdd7657b409.jar" />
+    </item>
+    <item
+        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2e8c06a7aad26ba8d2d5cab8134556594fe36856">
+        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-9ebfb5a3d3d3e8a5248606d2fb2ef032e26b458c.jar" />
     </item>
     <item
         jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
@@ -91,13 +126,6 @@
         revision="21.1.2"
         sha1="ba2aafb867f6af469f936ae76426cf0a280094bd">
         <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/google-api-client-android-1.19.0-bc428d93ca4ec8c64dfa1615e6a8080ed9c81d35.jar" />
-    </item>
-    <item
-        jar="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/exploded-aar/com.github.navasmdc/MaterialDesign/1.4/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="87405405e403de68f4057757b8a2e8de02bd65d0">
-        <dex dex="/home/a-carrot/Documents/Code projects/NSFEO/app/build/intermediates/pre-dexed/debug/classes-ff7b4ff6e381440968be7c8ec11995f26b88d331.jar" />
     </item>
     <item
         jar="/home/a-carrot/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.19.0/6a21277d9bebe267b7ddee028b241eebc756c040/google-api-client-1.19.0.jar"

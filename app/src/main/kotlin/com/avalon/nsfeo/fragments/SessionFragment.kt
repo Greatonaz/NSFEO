@@ -14,12 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import carbon.widget.Button
 import com.avalon.nsfeo.R
+import com.avalon.nsfeo.model.User
 import com.avalon.nsfeo.net.NSFEOService
 import com.avalon.nsfeo.util.DialogFactory
 import com.avalon.nsfeo.util.postServiceTask
 import com.avalon.nsfeo.util.text
-import com.gc.materialdesign.views.Button
 
 public class SessionFragment: Fragment() {
 
@@ -65,6 +66,8 @@ public class SessionFragment: Fragment() {
 								if (service.loginByCredentials(ctx, raw_email, raw_passwd)) {
 
 									// If login succeeded, swap fragment to the game dashboard
+									ctx.unbindService(this)
+
 									with (manager) {
 
 										this.beginTransaction()
