@@ -1,16 +1,10 @@
 package com.avalon.backend.models;
 
 import com.avalon.backend.NSFEOGoogleBackend;
-import com.avalon.backend.beans.user.GameUser;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.User;
 
 import java.util.Collections;
@@ -45,7 +39,7 @@ public class UserApi {
 
     }
 
-    private GameUser getUser(Key user_key){
+    /* private GameUser getUser(Key user_key){
 
         DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
         Query query = new Query(user_key);
@@ -59,5 +53,5 @@ public class UserApi {
             taskBeans.add(taskBean);
         }
 
-    }
+    } */
 }

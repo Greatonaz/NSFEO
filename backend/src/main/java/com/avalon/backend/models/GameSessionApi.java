@@ -14,10 +14,9 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.users.User;
 
@@ -49,7 +48,6 @@ public class GameSessionApi {
 
         try {
 
-            Key newGameSessionKey = KeyFactory.createKey("TaskBeanParent", "todo.txt");
             GameSession gameSession = new GameSession(session_name, round_limit);
 
             datastoreService.put(gameSession.toEntity());

@@ -1,6 +1,8 @@
 package com.avalon.nsfeo.fragments
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarActivity
@@ -11,11 +13,19 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import com.avalon.nsfeo.R
+import com.avalon.nsfeo.net.NSFEOService
+import com.avalon.nsfeo.net.NSFEOServiceConnection
 import com.avalon.nsfeo.util.DialogFactory
 import com.avalon.nsfeo.util.text
 import com.gc.materialdesign.views.Button
 
 public class SessionFragment: Fragment() {
+
+	private companion object {
+
+		val DASHBOARD_TRANSACTION_TAG: String = "SessionFragment.this::replace R.id.container, GameDashboardFragment"
+
+	}
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, state: Bundle?): View {
 
@@ -39,9 +49,25 @@ public class SessionFragment: Fragment() {
 				else if (raw_passwd.isEmpty()) password.setError(ctx.getString(R.string.password_error))
 				else {
 
-					// Configure account
+					// Credentials pass preliminary validation, try to authenticate
 					val dialog = DialogFactory.createProgressDialog(ctx, { dialog: DialogInterface ->
 
+						// Get a hold at our trusty service
+						val connect = NSFEOServiceConnection()
+						ctx.bindService(Intent(ctx, javaClass<NSFEOService>()), connect, Context.BIND_AUTO_CREATE)
+
+						// Try to authenticate the user through provided credentials
+						if (connect.getService().loginByCredentials(ctx, raw_email, raw_passwd)) {
+
+							with (manager) {
+
+								this.beginTransaction()
+									.replace(R.id.container, GameDashboardFragment(), SessionFragment.DASHBOARD_TRANSACTION_TAG)
+									.commit()
+							}
+						}
+						else
+							Toast.makeText(ctx, R.string.session_fail, Toast.LENGTH_SHORT).show()
 
 						dialog.dismiss()
 					})

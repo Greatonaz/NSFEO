@@ -5,56 +5,28 @@ import android.content.Context;
 import com.orm.androrm.Model;
 import com.orm.androrm.QuerySet;
 import com.orm.androrm.field.CharField;
-import com.orm.androrm.field.ForeignKeyField;
-import com.orm.androrm.field.ManyToManyField;
+import com.orm.androrm.field.DateTimeField;
 
-import java.util.List;
+import org.joda.time.DateTime;
 
-/**
- * Created by Tonaz on 3/3/2015.
- */
 public class User extends Model {
 
-    protected ForeignKeyField<UserSession> userSession = new ForeignKeyField<>(UserSession.class);
-    protected ManyToManyField<User, User> friendList = new ManyToManyField<>(User.class, User.class);
-    protected ManyToManyField<User, GameSession> gameSessionList = new ManyToManyField<>(User.class, GameSession.class);
-    protected CharField profilePicPath = new CharField(255);
+    protected CharField email_address = new CharField(64);
+    protected CharField display_name = new CharField(64);
+    protected DateTimeField last_login = new DateTimeField();
 
-    public static QuerySet<User> objects(Context ctx) { return Model.objects(ctx, User.class); }
+    public static QuerySet<User> objects(final Context ctx) { return Model.objects(ctx, User.class); }
 
-    public User(){
+    public User() { super(); }
+    public User(final String email) {
+
         super();
+        this.email_address.set(email);
     }
 
-    public UserSession getUserSession(Context ctx) {
-        return userSession.get(ctx);
-    }
+    public String getDisplayName() { return this.display_name.get(); }
+    public String getEmailAddress() { return this.display_name.get(); }
 
-    public void setUserSession(UserSession userSession) {
-        this.userSession.set(userSession);
-    }
+    public void updateLastLogin() { this.last_login.set(DateTime.now()); }
 
-    public QuerySet<User> getFriendList(Context ctx) {
-        return friendList.get(ctx, this);
-    }
-
-    public void setFriendList(List<User> friendList) {
-        this.friendList.addAll(friendList);
-    }
-
-    public QuerySet<GameSession> getGameSessionList(Context ctx) {
-        return gameSessionList.get(ctx, this);
-    }
-
-    public void setGameSessionList(List<GameSession> gameSessionList) {
-        this.gameSessionList.addAll(gameSessionList);
-    }
-
-    public String getProfilePicPath() {
-        return profilePicPath.get();
-    }
-
-    public void setProfilePicPath(String profilePicPath) {
-        this.profilePicPath.set(profilePicPath);
-    }
 }
